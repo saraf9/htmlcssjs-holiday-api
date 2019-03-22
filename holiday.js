@@ -30,7 +30,7 @@ function getHumanDate(year, month, day){
   mom.month(month);
   mom.date(day);
 
-  var date = mom.format ("ddd DD MMMM YYYY");
+  var date = mom.format ("dddd DD");
 
   return date;
 }
@@ -76,7 +76,7 @@ function printDays(year,month){
     var tempData = {
 
       machineDate: getMachineDate(year, month, day),
-      date : getHumanDate(year,month,day),
+      date : getHumanDate(year, month, day),
     }
 
   var liDay = compiled(tempData);
@@ -132,25 +132,88 @@ function addHolidaysHighlight(holidays){
     var holidayMachineDate = holiday.date;
     var holidayName = holiday.name;
 
-    var selector = "li[data-date ='" + holidayMachineDate + "']";
+    var selector = "li[data-date='" + holidayMachineDate + "']";
     var liHoliday = $(selector);
 
-    liHoliday.text(liHoliday.text() + " - " + holidayName);
+    liHoliday.text(liHoliday.text() + "  " + holidayName);
     liHoliday.addClass("holiday");
 
   }
 }
 
 
-// Funzione finale di richiamo alle altre funzioni
+// Funzione che mi permette di aggiornare in base al click il mese che voglio andando a dx o sx
+function updateCalendar(){
+
+  var h1Empty = $("#month-name");
+  h1Empty.text("");
+
+  var dayEmpty = $("li");
+  dayEmpty.remove();
+
+
+
+
+}
+
+
+// Creo le due funzioni per il cambio mese a dx e a sx: le associo poi nella init con i bottoni
+function changeMonthDx(year, month){
+
+  month++;
+  updateCalendar();
+  printTitle(year,month);
+  printDays(year,month);
+  printHolidays(year, month);
+  return month;
+}
+
+function changeMonthSx(year, month){
+
+  month--;
+  updateCalendar();
+  printTitle(year,month);
+  printDays(year,month);
+  printHolidays(year, month);
+  return month;
+}
+
+
+
+// Funzione finale di richiamo alle altre funzioni senxa cui non funzionerebbe
 function init (){
 
   var year = 2018;
-  var month = 3;
+  var month = 0;
 
   printTitle(year,month);
   printDays(year,month);
   printHolidays(year, month);
+
+  var btnDx = $("#next");
+  btnDx.click(function(){
+
+    if(month < 11){
+
+      month = changeMonthDx(year, month);
+    }else{
+
+      alert("Siamo spiacenti. Il calendario è disponibile solo per l'anno 2018.")
+    }
+  });
+
+  var btnSx = $("#prev");
+  btnSx.click(function(){
+
+    if(month > 0){
+
+      month = changeMonthSx(year, month);
+    }else{
+
+      alert("Siamo spiacenti. Il calendario è disponibile solo per l'anno 2018.")
+    }
+  });
+
 }
 
 
