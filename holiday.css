@@ -40,9 +40,11 @@ button{
   margin:auto;
   font-size:30px;
 }
+
 #day-list{
 
   font-size: 18px;
+  text-align: center;
 }
 
 .holiday{

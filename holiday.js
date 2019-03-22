@@ -75,6 +75,7 @@ function printDays(year,month){
 
     var tempData = {
 
+      machineDate: getMachineDate(year, month, day),
       date : getHumanDate(year,month,day),
     }
 
@@ -129,7 +130,7 @@ function addHolidaysHighlight(holidays){
     var holiday = holidays[i];
 
     var holidayMachineDate = holiday.date;
-    var holidayName = holiday.Name;
+    var holidayName = holiday.name;
 
     var selector = "li[data-date ='" + holidayMachineDate + "']";
     var liHoliday = $(selector);
